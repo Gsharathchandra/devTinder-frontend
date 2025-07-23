@@ -1,11 +1,14 @@
 import React from 'react'
 import NavBar from './NavBar'
+import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
 
 const Body = () => {
   return (
     <div>
         <NavBar/>
-      <h1 className="text-3xl font-bold ">hello bros !</h1>
+        <Outlet/>
+      <Footer/>
     </div>
   )
 }
