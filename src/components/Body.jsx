@@ -8,11 +8,10 @@ import { addUser } from '../utils/userSlice'
 import axios from 'axios'
 
 const Body = () => {
-  const dispatch = useDispatch;
-
+  const dispatch = useDispatch();
   const fetchUser = async ()=>{
   try {
-   const user = await axios.get(BASE_URL+"/profile/view",{withCredentials : true})
+   const res = await axios.get(BASE_URL+"/profile/view",{withCredentials : true})
    dispatch(addUser(res.data))
     
   } catch (error) {
