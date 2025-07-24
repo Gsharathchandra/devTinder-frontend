@@ -4,7 +4,7 @@ import Login from "./Login";       // ✅ You must import these
 import Profile from "./Profile";   // ✅ You must import these
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
-
+import Feed from "./Feed";
 function App() {
   return (
     <Provider store={appStore}>
