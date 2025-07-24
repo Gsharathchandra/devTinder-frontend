@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "./utils/userSlice";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("sharath@gmail.com");
   const [password, setPassword] = useState("Gumqwerty@12345");
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
@@ -12,7 +15,8 @@ const Login = () => {
         { emailId, password },
         { withCredentials: true }
       );
-      console.log(res);
+      console.log(res.data);
+      dispatch(addUser(res.data));
       
     } catch (err) {
       console.error(err);
