@@ -1,18 +1,22 @@
 import React from 'react'
 
 const UserCard = ({user}) => {
+    console.log(user);
+    const {firstName,lastName,age,gender,about,photoUrl} = user;
+    
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card bg-base-300 w-56 shadow-xl">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      src={photoUrl}
       alt="Shoes" />
   </figure>
   <div className="card-body">
-    <h2 className="card-title">Shoes!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div className="card-actions justify-end">
-      <button className="btn btn-primary">Buy Now</button>
+    <h2 className="card-title">{firstName+" "+lastName }</h2>
+    {age && gender && <p>{age + " " + gender}</p>}
+    <div className="card-actions justify-centre my-4">
+      <button className="btn btn-primary">Ignore</button>
+      <button className="btn btn-secondary">Intrested</button>
     </div>
   </div>
 </div>
