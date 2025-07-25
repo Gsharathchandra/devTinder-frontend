@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<Feed/>}/>
           <Route path="login" element={<Login />} />
           <Route path="profile/view" element={<Profile />} />
+           <Route path="profile/edit" element={<Profile />} />
            <Route path="/feed" element={<Feed />} />
         </Route>
       </Routes>
