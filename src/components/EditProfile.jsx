@@ -27,14 +27,19 @@ const EditProfile = ({ user }) => {
   //   }
   // };
 
-  const saveProfile = async () => {
+ const saveProfile = async () => {
   try {
-    const res = await fetch("http://localhost:3000/profile/edit", {
-      method: "PATCH",
-      credentials: "include",
+    // Use absolute URL in development
+    const url = import.meta.env.DEV 
+      ? 'http://localhost:3000/profile/edit' 
+      : '/profile/edit';
+
+    const response = await fetch(url, {
+      method: 'PATCH',
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
         firstName,
@@ -46,12 +51,16 @@ const EditProfile = ({ user }) => {
       })
     });
 
-    if (!res.ok) throw new Error("Request failed");
-    const data = await res.json();
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Update failed');
+    }
+
+    const data = await response.json();
     dispatch(addUser(data.data));
   } catch (error) {
-    console.error("Error:", error);
-    alert("Update failed: " + error.message);
+    console.error('Update error:', error);
+    alert(`Update failed: ${error.message}`);
   }
 };
 

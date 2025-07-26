@@ -4,16 +4,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      "/api": {
-        target: "http://localhost:3000",
+      '/api': {
+        target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-        // Force all methods through
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        // Force CORS headers for all methods
         configure: (proxy) => {
-          proxy.on("proxyReq", (proxyReq) => {
-            if (proxyReq.method === "OPTIONS") {
-              proxyReq.setHeader("Access-Control-Allow-Methods", "PATCH");
-            }
+          proxy.on('proxyRes', (proxyRes) => {
+            proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173';
+            proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS';
           });
         }
       }
