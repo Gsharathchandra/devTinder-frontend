@@ -14,18 +14,37 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const dispatch = useDispatch();
 
+  // const saveProfile = async () => {
+  //   try {
+  //     const res = await axios.patch(
+  //       BASE_URL + "/profile/edit",
+  //       { firstName, lastName, age, gender, about, photoUrl },
+  //       { withCredentials: true }
+  //     );
+  //     dispatch(addUser(res?.data?.data));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const saveProfile = async () => {
-    try {
-      const res = await axios.patch(
-        BASE_URL + "/profile/edit",
-        { firstName, lastName, age, gender, about, photoUrl },
-        { withCredentials: true }
-      );
-      dispatch(addUser(res?.data?.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  try {
+    const res = await axios.patch(
+      `${BASE_URL}/profile/edit`,  // Note the template literal
+      { firstName, lastName, age, gender, about, photoUrl },
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}` // If using tokens
+        }
+      }
+    );
+    dispatch(addUser(res?.data?.data));
+  } catch (error) {
+    console.error("Profile update failed:", error.response?.data || error.message);
+  }
+};
 
   return (
     <div className="flex justify-center my-2">
