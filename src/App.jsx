@@ -13,8 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Body />}>
           <Route path="/login" element={<Login />} />
-           <Route path="/profile" element={<Profile />} />
-           <Route path="/feed" element={<Feed />} />
+           <Route path="/profile/edit" element={<Profile />} />
+           <Route path="/" element={<Feed />} />
         </Route>
       </Routes>
     </BrowserRouter>
