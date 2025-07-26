@@ -14,55 +14,20 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const dispatch = useDispatch();
 
-  // const saveProfile = async () => {
-  //   try {
-  //     const res = await axios.patch(
-  //       BASE_URL + "/profile/edit",
-  //       { firstName, lastName, age, gender, about, photoUrl },
-  //       { withCredentials: true }
-  //     );
-  //     dispatch(addUser(res?.data?.data));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
- const saveProfile = async () => {
-  try {
-    // Use absolute URL in development
-    const url = import.meta.env.DEV 
-      ? 'http://localhost:3000/profile/edit' 
-      : '/profile/edit';
-
-    const response = await fetch(url, {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        age,
-        gender,
-        about,
-        photoUrl
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Update failed');
+  const saveProfile = async () => {
+    try {
+      const res = await axios.patch(
+        BASE_URL + "/profile/edit",
+        { firstName, lastName, age, gender, about, photoUrl },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res?.data?.data));
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    const data = await response.json();
-    dispatch(addUser(data.data));
-  } catch (error) {
-    console.error('Update error:', error);
-    alert(`Update failed: ${error.message}`);
-  }
-};
+ 
 
   return (
     <div className="flex justify-center my-2">
