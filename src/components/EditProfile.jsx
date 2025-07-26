@@ -29,20 +29,29 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
   try {
-    const res = await axios.patch(
-      `${BASE_URL}/profile/edit`,  // Note the template literal
-      { firstName, lastName, age, gender, about, photoUrl },
-      {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}` // If using tokens
-        }
-      }
-    );
-    dispatch(addUser(res?.data?.data));
+    const res = await fetch("http://localhost:3000/profile/edit", {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        age,
+        gender,
+        about,
+        photoUrl
+      })
+    });
+
+    if (!res.ok) throw new Error("Request failed");
+    const data = await res.json();
+    dispatch(addUser(data.data));
   } catch (error) {
-    console.error("Profile update failed:", error.response?.data || error.message);
+    console.error("Error:", error);
+    alert("Update failed: " + error.message);
   }
 };
 
