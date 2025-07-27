@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 import EditProfile from "./components/EditProfile";
+import Connections from "./components/Connections";
 function App() {
   return (
     <Provider store={appStore}>
